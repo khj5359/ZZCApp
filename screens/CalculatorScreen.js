@@ -66,6 +66,7 @@ export default class CalculatorScreen extends React.Component {
     //연산
     let source = this.state.expression.toString();
     let result;
+    let si_m, si_kg, si_s, si_A, si_K, si_mol, si_cd;
     try {
       for (let i = 0; i < this.state.expression.length; i++) {
         if (source.indexOf("mol") != -1) {
@@ -88,10 +89,25 @@ export default class CalculatorScreen extends React.Component {
       }
 
       result = math.eval(source);
+
+      si_m = result * 100 + "m";
+      si_kg = result * 200 + "kg";
+      si_s = result * 300 + "s";
+      si_A = result * 400 + "A";
+      si_K = result * 500 + "K";
+      si_mol = result * 600 + "mol";
+      si_cd = result * 700 + "cd";
     } catch (e) {
       result = "Error";
     }
     this.setState({ result: result });
+    this.setState({ si_m: si_m });
+    this.setState({ si_kg: si_kg });
+    this.setState({ si_s: si_s });
+    this.setState({ si_A: si_A });
+    this.setState({ si_K: si_K });
+    this.setState({ si_mol: si_mol });
+    this.setState({ si_cd: si_cd });
   }
 
   render() {
@@ -117,8 +133,15 @@ export default class CalculatorScreen extends React.Component {
           </View>
         </View>
         <View style={styles.slide2}>
-          {/* <HistoryBox history={this.state.history}/> */}
-          <Text style={{ textAlign: "center" }}>SiUnitsBox</Text>
+          <SiUnitsBox
+            si_m={this.state.si_m}
+            si_kg={this.state.si_kg}
+            si_s={this.state.si_s}
+            si_A={this.state.si_A}
+            si_K={this.state.si_K}
+            si_mol={this.state.si_mol}
+            si_cd={this.state.si_cd}
+          />
         </View>
       </Swiper>
     );
